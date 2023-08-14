@@ -6,6 +6,8 @@ Creates server and client certificates and configures Nginx to use them to serve
 Requirements
 ------------
 
+None.
+
 Role Variables
 --------------
 
