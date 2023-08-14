@@ -11,3 +11,9 @@
 - name: Install Python MySQL library
   ansible.builtin.pip:
     name: mysqlclient
+- name: Install MariaDB
+  become: true
+  ansible.builtin.apt:
+    name: mariadb-server
+    state: present
+  notify: Restart MySQL
