@@ -1,0 +1,14 @@
+server {
+    listen 8443 ssl default_server;
+    listen [::]:8443 ssl default_server;
+    # Comment out if you want to disable HTTPS
+    ssl_certificate {{ server_cert_path }}/{{ server_cert_name }};
+    ssl_certificate_key {{ server_key_path }}/{{ server_key_name }};
+
+    ssl_client_certificate {{ client_cert_path | default(server_cert_path) }}/{{ client_cert_name }};
+    ssl_verify_client on;
+
+    location / {
+        proxy_pass http://localhost:8090;
+    }
+}
