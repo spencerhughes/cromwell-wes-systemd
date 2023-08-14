@@ -44,6 +44,30 @@ None.
 Example Playbook
 ----------------
 
+    - hosts: all
+      roles:
+        - role: configure_nginx
+          vars:
+            server_key_path: /etc/ssl/private
+            server_key_name: cromwell-selfsigned.key
+            server_cert_path: /etc/ssl/certs
+            server_cert_name: cromwell-selfsigned.crt
+            server_org_name: Self-signed certificate
+            server_country_name: XX
+            server_state_or_province_name: N/A
+            server_locality_name: N/A
+            client_key_name: cromwell-client.key
+            client_cert_common_name: "Local Cromwell: Self-signed certificate"
+            client_org_name: Self-signed certificate
+            client_country_name: XX
+            client_state_or_province_name: N/A
+            client_locality_name: N/A
+            client_cert_name: cromwell-client.crt
+            nginx_worker_processes: 1
+            nginx_worker_connections: 1024
+            client_key_local_path: /home/user
+            client_cert_local_path: /home/user
+
 License
 -------
 
