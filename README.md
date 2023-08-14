@@ -7,7 +7,7 @@ This playbook initializes the resources described in [DNAstack's on-premises eng
 - [Cromwell](https://github.com/broadinstitute/cromwell) running in server mode
 - [MariaDB](https://mariadb.org/) database for storing Cromwell run information
 - [DNAstack's WES service](https://github.com/DNAstack/cromwell-wes-service), which will allow interacting with Cromwell via GA4GH APIs
-- [nginx](https://www.nginx.com/), which will activate as a reverse proxy for the WES service
+- [nginx](https://www.nginx.com/), which will act as a reverse proxy for the WES service
 
 This playbook will start the services and configure them to start automatically at boot.
 
