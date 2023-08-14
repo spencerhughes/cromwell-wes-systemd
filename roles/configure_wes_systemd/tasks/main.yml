@@ -25,6 +25,11 @@
     group: root
     mode: "u=rw,go=r"
     backup: true
+- name: Install Java
+  become: true
+  ansible.builtin.apt:
+    name: openjdk-17-jre
+    state: present
 - name: Install SystemD service
   become: true
   ansible.builtin.template:
