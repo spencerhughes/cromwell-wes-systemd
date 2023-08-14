@@ -110,3 +110,12 @@
     insertafter: BOF
     backup: true
   notify: Restart Nginx
+- name: Configure Nginx worker connections
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/nginx/nginx.conf
+    regexp: '\s+worker_connections\s+.*;'
+    line: "        worker_connections {{ nginx_worker_connections }};"
+    insertafter: 'events {'
+    backup: true
+  notify: Restart Nginx
