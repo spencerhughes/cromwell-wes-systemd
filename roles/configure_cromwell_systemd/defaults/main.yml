@@ -1,2 +1,6 @@
 ---
 # defaults file for roles/configure_cromwell_systemd
+cromwell_log_directory: /var/log/cromwell
+cromwell_install_directory: /opt/cromwell
+cromwell_config_directory: /etc/cromwell
+cromwell_job_outputs: /opt/cromwell/output
