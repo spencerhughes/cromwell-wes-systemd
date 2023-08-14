@@ -2,3 +2,7 @@
 # tasks file for roles/configure_nginx
 - name: Get public IP address
   community.general.ipify_facts:
+- name: Generate common name
+  ansible.builtin.set_fact:
+    server_cert_common_name: "{{ ipify_public_ip }}: Self-signed certificate"
+  when: (server_cert_common_name is not defined) or (server_cert_common_name|length == 0)
