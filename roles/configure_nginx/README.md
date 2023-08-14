@@ -1,4 +1,4 @@
-Role Name
+Configure Nginx for WES
 =========
 
 Requirements
