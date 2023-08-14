@@ -5,3 +5,33 @@
     - name: configure_mysql
     - name: configure_cromwell_systemd
     - name: configure_wes_systemd
+  post_tasks:
+    - name: Print local client curl command
+      tags:
+        - workbench_config
+      ansible.builtin.debug:
+        msg: "curl -k --key {{ client_key_local_path }}/{{ client_key_name }} --cert {{ client_cert_local_path }}/{{ client_cert_name }} https://127.0.0.1:8443/ga4gh/wes/v1/runs"
+    - name: Print remote client curl command
+      tags:
+        - workbench_config
+      ansible.builtin.debug:
+        msg: "curl -k --cacert {{ server_cert_path }}/{{ server_cert_name }} --key {{ client_key_local_path }}/{{ client_key_name }} --cert {{ client_cert_local_path }}/{{ client_cert_name }} https://{{ ipify_public_ip }}:8443/ga4gh/wes/v1/runs"
+    - name: Print workbench config
+      tags:
+        - workbench_config
+      ansible.builtin.debug:
+        msg: |
+          ID: < User defined >
+          Name: < User defined >
+          URL: https://{{ ipify_public_ip }}:8443
+          Provider: Self Hosted
+          Region: Local
+          Configure SSL: Enabled
+          Server Certificate:
+
+          {{ lookup('ansible.builtin.file', server_cert_path + '/' + server_cert_name) }}
+
+          Client Key and Certificate:
+
+          {{ lookup('ansible.builtin.file', client_key_local_path + '/' + client_key_name) }}
+          {{ lookup('ansible.builtin.file', client_cert_local_path + '/' + client_cert_name) }}
