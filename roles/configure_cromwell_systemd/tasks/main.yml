@@ -41,3 +41,11 @@
     group: root
     mode: "u=rw,go=r"
     backup: true
+- name: Copy Cromwell config to config directory
+  become: true
+  ansible.builtin.template:
+    src: cromwell-application.conf.j2
+    dest: "{{ cromwell_config_directory }}/{{ cromwell_config_name }}"
+    owner: root
+    group: root
+    mode: "u=rw,go=r"
