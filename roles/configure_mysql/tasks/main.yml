@@ -1,2 +1,10 @@
 ---
 # tasks file for roles/configure_mysql
+- name: Install Python MySQL dependencies
+  become: true
+  ansible.builtin.apt:
+    name:
+      - python3-dev
+      - default-libmysqlclient-dev
+      - build-essential
+      - pkg-config
