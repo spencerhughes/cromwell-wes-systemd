@@ -256,3 +256,10 @@
           ansible.builtin.file:
             path: "{{ cromwell_log_directory }}"
             state: absent
+
+  handlers:
+    - name: Reload Nginx conf
+      become: true
+      ansible.builtin.systemd:
+        name: nginx
+        state: reloaded
