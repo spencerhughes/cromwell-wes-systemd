@@ -6,3 +6,9 @@
   ansible.builtin.set_fact:
     server_cert_common_name: "{{ ipify_public_ip }}: Self-signed certificate"
   when: (server_cert_common_name is not defined) or (server_cert_common_name|length == 0)
+- name: Generate list of alt names
+  ansible.builtin.set_fact:
+    server_cert_alt_names:
+      - "IP:{{ ipify_public_ip }}"
+      - "IP:127.0.0.1"
+  when: (server_cert_alt_names is not defined) or (server_cert_alt_names|length == 0)
