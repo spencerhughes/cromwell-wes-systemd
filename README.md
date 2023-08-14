@@ -72,3 +72,11 @@ systemctl restart ${service}
 # Get logs for a service
 sudo journalctl -u ${service}
 ```
+
+### Connecting the engine to Workbench
+
+Once the services have been set up, the variables required for configuring the Cromwell engine on Workbench will be printed to the console. They may also be printed to stdout at any time by running the following command:
+
+```bash
+ansible-playbook -t workbench_config playbook.yml
+```
