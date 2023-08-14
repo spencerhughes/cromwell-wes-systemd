@@ -1,2 +1,9 @@
 ---
 # tasks file for roles/create_cromwell_user
+- name: Create cromwell user
+  become: true
+  ansible.builtin.user:
+    user: cromwell
+    create_home: false
+    system: true
+    comment: "Cromwell service user"
