@@ -1,6 +1,8 @@
 ---
 # tasks file for roles/configure_nginx
 - name: Get public IP address
+  tags:
+    - workbench_config
   community.general.ipify_facts:
 - name: Generate common name
   ansible.builtin.set_fact:
