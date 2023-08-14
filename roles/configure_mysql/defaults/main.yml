@@ -1,4 +1,6 @@
 ---
 # defaults file for roles/configure_mysql
+mysql_user: cromwell
+mysql_user_password: cromwell
 mysql_root_password: cromwell
 mysql_database_name: cromwell_db
