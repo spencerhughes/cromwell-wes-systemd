@@ -1,2 +1,34 @@
 ---
 # tasks file for roles/configure_cromwell_systemd
+- name: Create the logfile directory
+  become: true
+  ansible.builtin.file:
+    path: "{{ cromwell_log_directory }}"
+    state: directory
+    owner: cromwell
+    group: cromwell
+    mode: "u=rwx,go=rx"
+- name: Create Cromwell install directory
+  become: true
+  ansible.builtin.file:
+    path: "{{ cromwell_install_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "u=rwx,go=rx"
+- name: Create Cromwell config directory
+  become: true
+  ansible.builtin.file:
+    path: "{{ cromwell_config_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "u=rwx,go=rx"
+- name: Create Cromwell job output directory
+  become: true
+  ansible.builtin.file:
+    path: "{{ cromwell_job_output_directory }}"
+    state: directory
+    owner: cromwell
+    group: cromwell
+    mode: "ug=rw,o="
