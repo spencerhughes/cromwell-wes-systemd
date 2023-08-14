@@ -142,3 +142,12 @@
     insertafter: 'http {'
     backup: true
   notify: Restart Nginx
+- name: Configure Nginx keepalive timeout
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/nginx/nginx.conf
+    regexp: '\s+keepalive_timeout\s+.*;'
+    line: '        keepalive_timeout 65;'
+    insertafter: 'http {'
+    backup: true
+  notify: Restart Nginx
