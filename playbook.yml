@@ -1,0 +1,7 @@
+- name: Install Local Cromwell Environment
+  hosts: localhost
+  roles:
+    - name: configure_nginx
+    - name: configure_mysql
+    - name: configure_cromwell_systemd
+    - name: configure_wes_systemd
