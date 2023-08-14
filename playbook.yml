@@ -1,4 +1,4 @@
-- name: Install Local Cromwell Environment
+- name: Install Cromwell and WES
   hosts: localhost
   roles:
     - name: configure_nginx
