@@ -1,4 +1,4 @@
-Role Name
+Configure MySQL
 =========
 
 Requirements
