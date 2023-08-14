@@ -1,0 +1,13 @@
+[Unit]
+Description=Cromwell
+After=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+User=cromwell
+Group=cromwell
+ExecStart=java -Dconfig.file={{ cromwell_config_directory }}/{{ cromwell_config_name }} -jar {{ cromwell_install_directory }}/cromwell.jar server
+StandardOutput=append:{{ cromwell_log_directory }}/cromwell.log
+StandardError=append:{{ cromwell_log_directory }}/cromwell.log
