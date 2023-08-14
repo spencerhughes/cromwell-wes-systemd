@@ -17,3 +17,8 @@
     name: mariadb-server
     state: present
   notify: Restart MySQL
+- name: Start and Enable MySQL
+  ansible.builtin.systemd:
+    name: mysql
+    state: started
+    enabled: true
