@@ -45,7 +45,29 @@ Run `ansible-playbook playbook.yml` to setup MySQL, Cromwell, nginx, and DNAstac
 
 ### Uninstallation
 
-*Coming Soon*
+***This playbook is a work in progress and has not been tested. Use at your own risk.***
+
+1. Edit [uninstall.yml](uninstall.yml) and set the following variables based on what components you'd like to uninstall:
+
+    - `uninstall_java`
+    - `remove_logs`
+    - `uninstall_nginx`
+    - `restore_nginx_conf`
+    - `remove_keys`
+    - `uninstall_mysql`
+    - `remove_db`
+    - `remove_db_user`
+    - `uninstall_python_mysql`
+    - `uninstall_build_essential`
+    - `uninstall_python3_dev`
+    - `uninstall_pkgconfig`
+    - `uninstall_cromwell`
+    - `remove_job_output_dir`
+    - `uninstall_wes`
+
+    ***Note:*** Setting `restore_nginx_conf` to true will restore the earliest backup of `/etc/nginx/nginx.conf`. If any changes have been made to `nginx.conf` outside of Ansible, these changes will be overwritten. A backup of the pre-reversion `nginx.conf` will be taken as part of the uninstall process.
+
+0. Run `ansible-playbook uninstall.yml`.
 
 ### Managing Installed Services
 
