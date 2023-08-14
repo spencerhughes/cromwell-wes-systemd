@@ -46,3 +46,29 @@ Run `ansible-playbook playbook.yml` to setup MySQL, Cromwell, nginx, and DNAstac
 ### Uninstallation
 
 *Coming Soon*
+
+### Checking the status of the services
+
+The services are named:
+
+- `cromwell`
+- `wes`
+- `mysql`
+- `nginx`
+
+```bash
+# Get service status
+systemctl status ${service}
+
+# Stop a service
+systemctl stop ${service}
+
+# Start a service
+systemctl start ${service}
+
+# Restart a service
+systemctl restart ${service}
+
+# Get logs for a service
+sudo journalctl -u ${service}
+```
