@@ -1,0 +1,39 @@
+cromwell_log_directory: /var/log/cromwell
+cromwell_install_directory: /opt/cromwell
+cromwell_config_directory: /etc/cromwell
+cromwell_config_name: cromwell-application.conf
+cromwell_job_output_directory: /opt/cromwell/outputs
+cromwell_version: 85
+mysql_database_name: cromwell_db
+mysql_user: cromwell
+mysql_user_password: cromwell
+mysql_root_password: cromwell
+wes_install_directory: /opt/cromwell
+wes_log_directory: /var/log/cromwell
+wes_version: 1.0.0
+wes_server_address: 127.0.0.1
+server_key_path: /etc/ssl/private
+server_key_name: cromwell-selfsigned.key
+#server_key_password:
+#server_cert_common_name: "1.1.1.1: Self-signed certificate"
+#server_cert_alt_names:
+#  - "IP:1.1.1.1"
+#  - "IP:127.0.0.1"
+#  - "DNS:cromwell.example.com"
+server_org_name: Self-signed certificate
+server_country_name: XX
+server_state_or_province_name: N/A
+server_locality_name: N/A
+server_cert_path: /etc/ssl/certs
+server_cert_name: cromwell-selfsigned.crt
+client_key_local_path: /home/user
+client_key_name: cromwell-client.key
+#client_key_passphrase:
+client_cert_common_name: "Local Cromwell: Self-signed certificate"
+client_org_name: Self-signed certificate
+client_country_name: XX
+client_state_or_province_name: N/A
+client_locality_name: N/A
+client_cert_local_path: /home/user
+client_cert_path: /etc/ssl/certs
+client_cert_name: cromwell-client.crt
