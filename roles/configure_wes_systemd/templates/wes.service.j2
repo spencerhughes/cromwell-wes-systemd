@@ -1,0 +1,13 @@
+[Unit]
+Description=Cromwell Workflow Execution Service
+After=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+User=cromwell
+Group=cromwell
+ExecStart=java -Dserver.address={{ wes_server_address }} -Dspring.profiles.active=no-auth -jar {{ wes_install_directory }}/cromwell-wes-service-{{ wes_version }}.jar
+StandardOutput=append:{{ wes_log_directory }}/wes.log
+StandardError=append:{{ wes_log_directory }}/wes.log
