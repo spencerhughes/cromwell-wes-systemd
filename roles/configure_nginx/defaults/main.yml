@@ -15,3 +15,4 @@ client_country_name: XX
 client_state_or_province_name: N/A
 client_locality_name: N/A
 client_cert_name: cromwell-client.crt
+nginx_worker_processes: 1
