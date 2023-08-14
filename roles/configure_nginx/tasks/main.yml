@@ -12,3 +12,8 @@
       - "IP:{{ ipify_public_ip }}"
       - "IP:127.0.0.1"
   when: (server_cert_alt_names is not defined) or (server_cert_alt_names|length == 0)
+- name: Create server private key (RSA, 4096 bits)
+  become: true
+  community.crypto.openssl_privatekey:
+    path: "{{ server_key_path }}/{{ server_key_name }}"
+    passphrase: "{{ server_key_password | default(omit) }}"
