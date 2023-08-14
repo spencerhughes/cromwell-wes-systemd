@@ -10,3 +10,7 @@ This playbook initializes the resources described in [DNAstack's on-premises eng
 - [nginx](https://www.nginx.com/), which will activate as a reverse proxy for the WES service
 
 This playbook will start the services and configure them to start automatically at boot.
+
+## Requirements
+
+- `python3.5+`
