@@ -34,3 +34,10 @@
     group: root
     mode: "u=rw,go=r"
   notify: Reload Daemons
+- name: Start and enable the WES service
+  become: true
+  ansible.builtin.systemd:
+    name: wes.service
+    state: started
+    enabled: true
+    daemon_reload: true
