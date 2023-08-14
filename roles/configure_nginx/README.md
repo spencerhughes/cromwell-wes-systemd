@@ -76,3 +76,4 @@ GPLv2
 Author Information
 ------------------
 
+Spencer Hughes (spencer@somanydoors.ca)
