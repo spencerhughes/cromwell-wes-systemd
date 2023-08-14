@@ -14,3 +14,4 @@ client_org_name: Self-signed certificate
 client_country_name: XX
 client_state_or_province_name: N/A
 client_locality_name: N/A
+client_cert_name: cromwell-client.crt
