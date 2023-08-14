@@ -29,6 +29,20 @@ Dependencies
 Example Playbook
 ----------------
 
+    - hosts: all
+      roles:
+         - name: configure_cromwell_systemd
+           vars:
+             cromwell_log_directory: /var/log/cromwell
+             cromwell_install_directory: /opt/cromwell
+             cromwell_config_directory: /etc/cromwell
+             cromwell_config_name: cromwell-application.conf
+             cromwell_job_outputs: /opt/cromwell/output
+             cromwell_version: 85
+             mysql_user: cromwell
+             mysql_user_password: cromwell
+             mysql_database_name: cromwell_db
+
 License
 -------
 
