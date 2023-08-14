@@ -24,6 +24,15 @@ Dependencies
 Example Playbook
 ----------------
 
+    - hosts: all
+      roles:
+         - name: configure_wes_systemd
+           vars:
+             wes_install_directory: /opt/cromwell
+             wes_log_directory: /var/log/cromwell
+             wes_server_address: 127.0.0.1
+             wes_version: 1.0.0
+
 License
 -------
 
