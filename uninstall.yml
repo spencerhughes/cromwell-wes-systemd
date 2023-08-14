@@ -7,6 +7,8 @@
     # Cromwell uninstall settings
     uninstall_cromwell: true
     remove_job_output_dir: true
+    # WES uninstall settings
+    uninstall_wes: true
   tasks:
     - name: Uninstall Cromwell
       when: uninstall_cromwell
@@ -55,4 +57,43 @@
           when: remove_logs
           ansible.builtin.file:
             path: "{{ cromwell_log_directory }}/cromwell.log"
+            state: absent
+
+    - name: Uninstall WES
+      when: uninstall_wes
+      block:
+        - name: Disable WES Nginx site
+          become: true
+          ansible.builtin.file:
+            path: /etc/nginx/sites-enabled/wes
+            state: absent
+          notify: Reload Nginx conf
+        - name: Stop and disable WES service
+          become: true
+          ansible.builtin.systemd:
+            name: wes
+            state: stopped
+            enabled: false
+        - name: Remove WES service file
+          become: true
+          ansible.builtin.file:
+            path: /etc/systemd/system/wes.service
+            state: absent
+          notify: Reload daemons
+        - name: Uninstall Java
+          become: true
+          when: uninstall_java
+          ansible.builtin.apt:
+            name: openjdk-17-jre
+            state: absent
+        - name: Remove WES JAR
+          become: true
+          ansible.builtin.file:
+            path: "{{ wes_install_directory }}/cromwell-wes-service-{{ wes_version }}.jar"
+            state: absent
+        - name: Remove WES logs
+          become: true
+          when: remove_logs
+          ansible.builtin.file:
+            path: "{{ wes_log_directory }}/wes.log"
             state: absent
