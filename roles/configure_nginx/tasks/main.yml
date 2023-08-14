@@ -44,3 +44,15 @@
     module: community.crypto.openssl_privatekey
     path: "{{ client_key_local_path }}/{{ client_key_name }}"
     passphrase: "{{ client_key_passphrase | default(omit) }}"
+- name: Create CSR for client certificate
+  local_action:
+    module: community.crypto.openssl_csr_pipe
+    privatekey_path: "{{ client_key_local_path }}/{{ client_key_name }}"
+    privatekey_passphrase: "{{ client_key_passphrase | default(omit) }}"
+    common_name: "{{ client_cert_common_name }}"
+    organization_name: "{{ client_org_name | default(server_org_name) }}"
+    country_name: "{{ client_country_name | default(server_country_name) }}"
+    state_or_province_name: "{{ client_state_or_province_name | default(server_state_or_province_name) }}"
+    locality_name: "{{ client_locality_name | default(server_locality_name) }}"
+  register: client_csr
+  changed_when: false
