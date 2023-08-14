@@ -40,7 +40,7 @@
 - name: Download Cromwell JAR to install directory
   become: true
   ansible.builtin.get_url:
-    url: https://github.com/broadinstitute/cromwell/releases/download/{{ cromwell_version }}/cromwell-{{ cromwell_version }}.jar
+    url: "https://github.com/broadinstitute/cromwell/releases/download/{{ cromwell_version }}/cromwell-{{ cromwell_version }}.jar"
     dest: "{{ cromwell_install_directory }}"
     owner: root
     group: root
