@@ -101,3 +101,12 @@
     dest: /etc/nginx/sites-enabled/wes
     state: link
   notify: Restart Nginx
+- name: Configure Nginx worker processes
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/nginx/nginx.conf
+    regexp: 'worker_processes\s+.*;'
+    line: "worker_processes {{ nginx_worker_processes }};"
+    insertafter: BOF
+    backup: true
+  notify: Restart Nginx
