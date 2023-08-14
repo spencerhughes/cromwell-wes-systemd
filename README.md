@@ -39,7 +39,7 @@ This playbook will start the services and configure them to start automatically 
 
 ## Usage
 
-### Install
+### Installation
 
 Run `ansible-playbook playbook.yml` to setup MySQL, Cromwell, nginx, and DNAstack WES's service locally.
 
