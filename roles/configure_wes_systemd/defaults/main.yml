@@ -2,3 +2,4 @@
 # defaults file for roles/configure_wes_systemd
 wes_install_directory: /opt/cromwell
 wes_log_directory: /var/log/cromwell
+wes_version: 1.0.0
