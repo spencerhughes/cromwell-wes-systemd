@@ -2,3 +2,7 @@
 # defaults file for roles/configure_nginx
 server_key_path: /etc/ssl/private
 server_key_name: cromwell-selfsigned.key
+server_org_name: Self-signed certificate
+server_country_name: XX
+server_state_or_province_name: N/A
+server_locality_name: N/A
