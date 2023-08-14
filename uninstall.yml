@@ -229,3 +229,30 @@
                 name: pkg-config
                 state: absent
 
+    - name: Remove shared directories
+      when:
+        - uninstall_wes
+        - uninstall_cromwell
+      block:
+        - name: Remove WES install directory
+          become: true
+          ansible.builtin.file:
+            path: "{{ wes_install_directory }}"
+            state: absent
+        - name: Remove WES log directory
+          become: true
+          when: remove_logs
+          ansible.builtin.file:
+            path: "{{ wes_log_directory }}"
+            state: absent
+        - name: Remove Cromwell install directory
+          become: true
+          ansible.builtin.file:
+            path: "{{ cromwell_install_directory }}"
+            state: absent
+        - name: Remove Cromwell log directory
+          become: true
+          when: remove_logs
+          ansible.builtin.file:
+            path: "{{ cromwell_log_directory }}"
+            state: absent
