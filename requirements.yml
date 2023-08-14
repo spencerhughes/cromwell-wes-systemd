@@ -3,3 +3,5 @@ collections:
     version: ">=3.7.2"
   - name: community.general
     version: ">=7.2.0"
+  - name: community.crypto
+    version: ">=2.15.0"
