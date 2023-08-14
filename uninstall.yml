@@ -4,6 +4,10 @@
     # Common uninstall settings
     uninstall_java: true
     remove_logs: true
+    # Nginx uninstall settings
+    uninstall_nginx: true
+    restore_nginx_conf: true
+    remove_keys: true
     # Cromwell uninstall settings
     uninstall_cromwell: true
     remove_job_output_dir: true
@@ -96,4 +100,65 @@
           when: remove_logs
           ansible.builtin.file:
             path: "{{ wes_log_directory }}/wes.log"
+            state: absent
+
+    - name: Uninstall Nginx
+      when: uninstall_nginx
+      block:
+        - name: Stop and disable Nginx service
+          become: true
+          ansible.builtin.systemd:
+            name: nginx
+            state: stopped
+            enabled: false
+        - name: Restore Nginx config from backup
+          become: true
+          when: restore_nginx_conf
+          block:
+            - name: "Find all backups for nginx.conf"
+              ansible.builtin.find:
+                recurse: no
+                paths:
+                  - '{{ "/etc/nginx/nginx.conf" | dirname }}'
+                patterns:
+                  - '{{ "/etc/nginx/nginx.conf" | basename }}\..*~'
+                use_regex: true
+              register: find_backup
+            - name: Select the oldest backup found on disk
+              ansible.builtin.set_fact:
+                original_config_file: "{{ (find_backup.files | sort(attribute='mtime') | first).path }}"
+            - name: "Restore backup of original version of nginx.conf"
+              ansible.builtin.copy:
+                src: "{{ original_config_file }}"
+                remote_src: true
+                dest: /etc/nginx/nginx.conf
+                backup: true
+        - name: Uninstall Nginx
+          become: true
+          ansible.builtin.apt:
+            name: nginx
+            state: absent
+        - name: Remove client and server certificates from server
+          become: true
+          ansible.builtin.file:
+            path: "{{ item }}"
+            state: absent
+          loop:
+            - "{{ client_cert_path | default(server_cert_path) }}/{{ client_cert_name }}"
+            - "{{ server_cert_path }}/{{ server_cert_name }}"
+        - name: Remove server keys
+          become: true
+          when: remove_keys
+          ansible.builtin.file:
+            path: "{{ server_key_path }}/{{ server_key_name }}"
+        - name: Remove local certificates
+          local_action:
+            module: ansible.builtin.file
+            path: "{{ client_cert_local_path }}/{{ client_cert_name }}"
+            state: absent
+        - name: Remove local key
+          when: remove_keys
+          local_action:
+            module: ansible.builtin.file
+            path: "{{ client_key_local_path }}/{{ client_key_name }}"
             state: absent
