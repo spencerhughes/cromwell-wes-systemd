@@ -1,2 +1,18 @@
 ---
 # tasks file for roles/configure_wes_systemd
+- name: Create the logfile directory
+  become: true
+  ansible.builtin.file:
+    path: "{{ wes_log_directory }}"
+    state: directory
+    owner: cromwell
+    group: cromwell
+    mode: "u=rwx,go=rx"
+- name: Create WES install directory
+  become: true
+  ansible.builtin.file:
+    path: "{{ wes_install_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "u=rwx,go=rx"
