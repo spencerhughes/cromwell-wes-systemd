@@ -85,3 +85,19 @@
     state: started
     enabled: true
     daemon_reload: true
+- name: Install WES Nginx site
+  become: true
+  ansible.builtin.template:
+    src: wes-nginx.j2
+    dest: /etc/nginx/sites-available/wes
+    owner: root
+    group: root
+    mode: "u=rw,go=r"
+  notify: Restart Nginx
+- name: Enable WES Nginx site
+  become: true
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/wes
+    dest: /etc/nginx/sites-enabled/wes
+    state: link
+  notify: Restart Nginx
