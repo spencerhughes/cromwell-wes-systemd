@@ -38,6 +38,8 @@ Example Playbook
 License
 -------
 
+GPLv2
+
 Author Information
 ------------------
 
