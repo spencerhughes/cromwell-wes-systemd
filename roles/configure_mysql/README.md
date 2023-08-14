@@ -26,6 +26,15 @@ Dependencies
 Example Playbook
 ----------------
 
+    - hosts: all
+      roles:
+         - name: configure_mysql
+           vars:
+             mysql_user: cromwell
+             mysql_user_password: cromwell
+             mysql_root_password: cromwell
+             mysql_database_name: cromwell_db
+
 License
 -------
 
