@@ -1,2 +1,7 @@
 ---
 # handlers file for roles/configure_nginx
+- name: Restart Nginx
+  become: true
+  ansible.builtin.systemd:
+    name: nginx
+    state: restarted
