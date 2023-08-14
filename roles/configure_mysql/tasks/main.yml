@@ -37,3 +37,9 @@
     name: root
     password: "{{ mysql_root_password }}"
     state: present
+- name: Create Cromwell database
+  community.mysql.mysql_db:
+    name: "{{ mysql_database_name }}"
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
