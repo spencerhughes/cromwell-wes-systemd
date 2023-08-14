@@ -32,6 +32,11 @@
     owner: cromwell
     group: cromwell
     mode: "ug=rw,o="
+- name: Install Java
+  become: true
+  ansible.builtin.apt:
+    name: openjdk-17-jre
+    state: present
 - name: Download Cromwell JAR to install directory
   become: true
   ansible.builtin.get_url:
@@ -41,6 +46,14 @@
     group: root
     mode: "u=rw,go=r"
     backup: true
+#- name: Copy Cromwell JAR to install directory
+#  become: true
+#  ansible.builtin.copy:
+#    src: cromwell.jar
+#    dest: "{{ cromwell_install_directory }}"
+#    owner: root
+#    group: root
+#    mode: "u=rw,go=r"
 - name: Copy Cromwell config to config directory
   become: true
   ansible.builtin.template:
