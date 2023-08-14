@@ -14,3 +14,25 @@ This playbook will start the services and configure them to start automatically 
 ## Requirements
 
 - `python3.5+`
+
+## Setup
+
+1. Create and activate a new Python virtual environment
+    ```bash
+    python3 -m venv ansible
+    source ansible/bin/activate
+    ```
+0. Install Ansible using pip
+    ```bash
+    python3 -m pip install ansible
+    ```
+0. Set the following required variables in [host_vars/localhost.yml](host_vars/localhost.yml):
+    - `client_key_local_path`: The path to the directory on the local machine that will contain the client key file.
+    - `client_cert_local_path`: The path to the directory on the local machine that will contain the client certificate file.
+
+    Other variables in this file may be configured as desired.
+
+0. Install required collections
+    ```bash
+    ansible-galaxy install -r requirements.yml
+    ```
