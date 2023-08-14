@@ -1,3 +1,58 @@
 - name: Uninstall Cromwell and WES
   hosts: localhost
+  vars:
+    # Common uninstall settings
+    uninstall_java: true
+    remove_logs: true
+    # Cromwell uninstall settings
+    uninstall_cromwell: true
+    remove_job_output_dir: true
   tasks:
+    - name: Uninstall Cromwell
+      when: uninstall_cromwell
+      block:
+        - name: Stop and disable Cromwell service
+          become: true
+          ansible.builtin.systemd:
+            name: cromwell
+            state: stopped
+            enabled: false
+        - name: Uninstall Cromwell service file
+          become: true
+          ansible.builtin.file:
+            path: /etc/systemd/system/cromwell.service
+            state: absent
+          notify: Reload daemons
+        - name: Remove Cromwell config directory
+          become: true
+          ansible.builtin.file:
+            path: "{{ cromwell_config_directory }}"
+            state: absent
+        - name: Remove Cromwell JAR
+          become: true
+          ansible.builtin.file:
+            path: "{{ cromwell_install_directory }}/cromwell-{{ cromwell_version }}.jar"
+            state: absent
+        - name: Uninstall Java
+          become: true
+          when: uninstall_java
+          ansible.builtin.apt:
+            name: openjdk-17-jre
+            state: absent
+        - name: Remove Cromwell job output directory
+          become: true
+          when: remove_job_output_dir
+          ansible.builtin.file:
+            path: "{{ cromwell_job_output_directory }}"
+            state: absent
+        - name: Remove Cromwell config directory
+          become: true
+          ansible.builtin.file:
+            path: "{{ cromwell_config_directory }}"
+            state: absent
+        - name: Remove Cromwell logs
+          become: true
+          when: remove_logs
+          ansible.builtin.file:
+            path: "{{ cromwell_log_directory }}/cromwell.log"
+            state: absent
