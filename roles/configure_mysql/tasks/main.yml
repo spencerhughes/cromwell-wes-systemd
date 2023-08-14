@@ -8,3 +8,6 @@
       - default-libmysqlclient-dev
       - build-essential
       - pkg-config
+- name: Install Python MySQL library
+  ansible.builtin.pip:
+    name: mysqlclient
