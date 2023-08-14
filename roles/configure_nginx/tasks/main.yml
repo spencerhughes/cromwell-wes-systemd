@@ -39,3 +39,8 @@
     csr_content: "{{ server_csr.csr }}"
     provider: selfsigned
     selfsigned_not_after: "+365d"
+- name: Generate client private key
+  local_action:
+    module: community.crypto.openssl_privatekey
+    path: "{{ client_key_local_path }}/{{ client_key_name }}"
+    passphrase: "{{ client_key_passphrase | default(omit) }}"
