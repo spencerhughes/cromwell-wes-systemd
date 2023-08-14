@@ -1,2 +1,6 @@
 ---
 # handlers file for roles/configure_wes_systemd
+- name: Reload Daemons
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
