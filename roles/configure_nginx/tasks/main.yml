@@ -1,2 +1,4 @@
 ---
 # tasks file for roles/configure_nginx
+- name: Get public IP address
+  community.general.ipify_facts:
