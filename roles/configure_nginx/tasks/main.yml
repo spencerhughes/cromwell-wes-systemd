@@ -78,3 +78,10 @@
   ansible.builtin.apt:
     name: nginx
     state: present
+- name: Start and Enable Nginx
+  become: true
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+    enabled: true
+    daemon_reload: true
