@@ -17,3 +17,16 @@
   community.crypto.openssl_privatekey:
     path: "{{ server_key_path }}/{{ server_key_name }}"
     passphrase: "{{ server_key_password | default(omit) }}"
+- name: Create CSR for self-signed certificate
+  become: true
+  community.crypto.openssl_csr_pipe:
+    privatekey_path: "{{ server_key_path }}/{{ server_key_name }}"
+    privatekey_passphrase: "{{ server_key_password | default(omit) }}"
+    common_name: "{{ server_cert_common_name }}"
+    organization_name: "{{ server_org_name }}"
+    subject_alt_name: "{{ server_cert_alt_names }}"
+    country_name: "{{ server_country_name }}"
+    state_or_province_name: "{{ server_state_or_province_name }}"
+    locality_name: "{{ server_locality_name }}"
+  register: server_csr
+  changed_when: false
