@@ -1,0 +1,3 @@
+- name: Uninstall Cromwell and WES
+  hosts: localhost
+  tasks:
