@@ -24,6 +24,8 @@ server_key_name: cromwell-selfsigned.key
 #  - "IP:1.1.1.1"
 #  - "IP:127.0.0.1"
 #  - "DNS:cromwell.example.com"
+# For more information about alt names:
+# https://docs.ansible.com/ansible/latest/collections/community/crypto/openssl_csr_pipe_module.html#parameter-subject_alt_name
 server_org_name: Self-signed certificate
 server_country_name: XX
 server_state_or_province_name: N/A
