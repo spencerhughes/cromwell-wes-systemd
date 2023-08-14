@@ -17,6 +17,7 @@
   community.crypto.openssl_privatekey:
     path: "{{ server_key_path }}/{{ server_key_name }}"
     passphrase: "{{ server_key_password | default(omit) }}"
+  notify: Restart Nginx
 - name: Create CSR for self-signed certificate
   become: true
   community.crypto.openssl_csr_pipe:
@@ -39,11 +40,13 @@
     csr_content: "{{ server_csr.csr }}"
     provider: selfsigned
     selfsigned_not_after: "+365d"
+  notify: Restart Nginx
 - name: Generate client private key
   local_action:
     module: community.crypto.openssl_privatekey
     path: "{{ client_key_local_path }}/{{ client_key_name }}"
     passphrase: "{{ client_key_passphrase | default(omit) }}"
+  notify: Restart Nginx
 - name: Create CSR for client certificate
   local_action:
     module: community.crypto.openssl_csr_pipe
@@ -65,6 +68,7 @@
     csr_content: "{{ client_csr.csr }}"
     provider: selfsigned
     selfsigned_not_after: "+365d"
+  notify: Restart Nginx
 - name: Upload client cert to server
   become: true
   ansible.builtin.copy:
