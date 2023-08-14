@@ -21,6 +21,8 @@ Role Variables
 Dependencies
 ------------
 
+- community.mysql
+
 Example Playbook
 ----------------
 
