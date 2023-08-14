@@ -16,3 +16,12 @@
     owner: root
     group: root
     mode: "u=rwx,go=rx"
+- name: Download WES JAR to install directory
+  become: true
+  ansible.builtin.get_url:
+    url: "https://github.com/DNAstack/cromwell-wes-service/releases/download/{{ wes_version }}/cromwell-wes-service-{{ wes_version }}.jar"
+    dest: "{{ wes_install_directory }}"
+    owner: root
+    group: root
+    mode: "u=rw,go=r"
+    backup: true
