@@ -22,3 +22,11 @@
     name: mysql
     state: started
     enabled: true
+- name: Create root credential file
+  become: true
+  ansible.builtin.template:
+    src: my.cnf.j2
+    dest: /root/.my.cnf
+    owner: root
+    group: root
+    mode: "u=rw,go="
