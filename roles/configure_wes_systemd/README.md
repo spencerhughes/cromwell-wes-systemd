@@ -19,6 +19,8 @@ Role Variables
 Dependencies
 ------------
 
+- create_cromwell_user
+
 Example Playbook
 ----------------
 
