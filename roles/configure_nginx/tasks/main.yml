@@ -133,3 +133,12 @@
     insertafter: 'http {'
     backup: true
   notify: Restart Nginx
+- name: Configure Nginx sendfile
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/nginx/nginx.conf
+    regexp: '\s+sendfile\s+.*;'
+    line: '        sendfile on;'
+    insertafter: 'http {'
+    backup: true
+  notify: Restart Nginx
