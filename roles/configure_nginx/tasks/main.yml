@@ -56,3 +56,12 @@
     locality_name: "{{ client_locality_name | default(server_locality_name) }}"
   register: client_csr
   changed_when: false
+- name: Create client certificate
+  local_action:
+    module: community.crypto.x509_certificate
+    path: "{{ client_cert_local_path }}/{{ client_cert_name }}"
+    privatekey_path: "{{ client_key_local_path }}/{{ client_key_name }}"
+    privatekey_passphrase: "{{ client_key_passphrase | default(omit) }}"
+    csr_content: "{{ client_csr.csr }}"
+    provider: selfsigned
+    selfsigned_not_after: "+365d"
