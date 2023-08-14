@@ -30,3 +30,12 @@
     locality_name: "{{ server_locality_name }}"
   register: server_csr
   changed_when: false
+- name: Create self-signed certificate
+  become: true
+  community.crypto.x509_certificate:
+    path: "{{ server_cert_path }}/{{ server_cert_name }}"
+    privatekey_path: "{{ server_key_path }}/{{ server_key_name }}"
+    privatekey_passphrase: "{{ server_key_password | default(omit) }}"
+    csr_content: "{{ server_csr.csr }}"
+    provider: selfsigned
+    selfsigned_not_after: "+365d"
