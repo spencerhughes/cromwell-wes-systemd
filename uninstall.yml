@@ -8,6 +8,14 @@
     uninstall_nginx: true
     restore_nginx_conf: true
     remove_keys: true
+    # MySQL uninstall settings
+    uninstall_mysql: true
+    remove_db: true
+    remove_db_user: true
+    uninstall_python_mysql: true
+    uninstall_build_essential: false
+    uninstall_python3_dev: false
+    uninstall_pkgconfig: false
     # Cromwell uninstall settings
     uninstall_cromwell: true
     remove_job_output_dir: true
@@ -162,3 +170,62 @@
             module: ansible.builtin.file
             path: "{{ client_key_local_path }}/{{ client_key_name }}"
             state: absent
+
+    - name: Uninstall MySQL
+      when: uninstall_mysql
+      block:
+        - name: Remove Cromwell database user
+          when: remove_db_user
+          community.mysql.mysql_user:
+            name: "{{ mysql_user }}"
+            state: absent
+            login_user: root
+            login_password: "{{ mysql_root_password }}"
+        - name: Delete the Cromwell database
+          when: remove_db
+          community.mysql.mysql_db:
+            name: "{{ mysql_database_name }}"
+            state: absent
+        - name: Stop and disable MySQL service
+          become: true
+          ansible.builtin.systemd:
+            name: mysql
+            state: stopped
+            enabled: false
+        - name: Uninstall MySQL
+          become: true
+          ansible.builtin.apt:
+            name: mariadb-server
+            state: absent
+        - name: Uninstall Python MySQL dependencies
+          when: uninstall_python_mysql
+          block:
+            - name: Uninstall Python MySQL library
+              become: true
+              ansible.builtin.pip:
+                name: mysqlclient
+                state: absent
+            - name: Uninstall Python MySQL dependencies
+              become: true
+              ansible.builtin.apt:
+                name: default-libmysqlclient-dev
+                state: absent
+            - name: Uninstall build-essential
+              become: true
+              when: uninstall_build_essential
+              ansible.builtin.apt:
+                name: build-essential
+                state: absent
+            - name: Uninstall python3-dev
+              become: true
+              when: uninstall_python3_dev
+              ansible.builtin.apt:
+                name: python3-dev
+                state: absent
+            - name: Uninstall pkg-config
+              become: true
+              when: uninstall_pkgconfig
+              ansible.builtin.apt:
+                name: pkg-config
+                state: absent
+
